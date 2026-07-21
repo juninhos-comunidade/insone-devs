@@ -7,7 +7,9 @@
 ## 👑 Juliana Freire (Líder)
 - Coordenação geral do projeto e acompanhamento do progresso da equipe
 - Revisão de Pull Requests e definição de padrões de arquitetura
-- Módulo de autenticação no backend (`backend/src/auth`): login, JWT, guards
+- Páginas do frontend (`frontend/src/pages`): Login, Register, Home
+- Integração com a API (`frontend/src/services`): Axios, chamadas de auth e usuários
+- Rotas protegidas (`frontend/src/routes`)
 
 ## Gustavo Geraldo
 - Módulo de usuários no backend (`backend/src/users`): controller, service, DTOs
@@ -15,9 +17,7 @@
 - Configuração e manutenção do banco de dados (PostgreSQL)
 
 ## Lucas Paguetti Pereira
-- Páginas do frontend (`frontend/src/pages`): Login, Register, Home
-- Integração com a API (`frontend/src/services`): Axios, chamadas de auth e usuários
-- Rotas protegidas (`frontend/src/routes`)
+- Módulo de autenticação no backend (`backend/src/auth`): login, JWT, guards
 
 ## Maria Clara Castro
 - Componentes de UI reutilizáveis (`frontend/src/components/ui`): Button, Input, etc.
