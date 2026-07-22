@@ -33,6 +33,7 @@
   <img src="https://img.shields.io/badge/Git-111827?style=for-the-badge&logo=git&logoColor=F05032" height="25" alt="Git"/>
   <img src="https://img.shields.io/badge/GitHub-111827?style=for-the-badge&logo=github&logoColor=white" height="25" alt="GitHub"/>
   <img src="https://img.shields.io/badge/GitHub_Desktop-111827?style=for-the-badge&logo=github&logoColor=purple" height="25" alt="GitHub Desktop"/>
+  <img src="https://img.shields.io/badge/Google_Forms-111827?style=for-the-badge&logo=googleforms&logoColor=7248B9" height="25" alt="Google Forms"/>
 </p>
 
 <h2 align="center">🏰 Arquitetura do nosso MVP <br>
@@ -48,7 +49,8 @@ insone-devs/
 │   ├── src <img src="https://img.shields.io/badge/src-8B0000?style=flat&logo=nestjs&logoColor=FF0000" height="18"/>/
 │   │   ├── auth <img src="https://img.shields.io/badge/-Auth-111827?style=flat&logo=nestjs&logoColor=E0234E" height="18"/>/
 │   │   │   ├── dto <img src="https://img.shields.io/badge/-Data_Transform_Object_(DTO)-111827?style=flat&logo=typescript&logoColor=orange" height="18" alt="DTO"/>/
-│   │   │   │   └── login.dto.ts <img src="https://img.shields.io/badge/DTO_Create-111827?style=flat&logo=typescript&logoColor=E0234E" height="18"/>
+│   │   │   │   ├── login.dto.ts <img src="https://img.shields.io/badge/DTO_Create-111827?style=flat&logo=typescript&logoColor=E0234E" height="18"/>
+│   │   │   │   └── login-update.dto.ts <img src="https://img.shields.io/badge/DTO_Update-111827?style=flat&logo=typescript&logoColor=yellow" height="18"/>
 │   │   │   ├── auth.controller.ts <img src="https://img.shields.io/badge/-Controller-111827?style=flat&logo=typescript&logoColor=F7DF1E" height="18"/>
 │   │   │   ├── auth.service.ts <img src="https://img.shields.io/badge/-Service-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>
 │   │   │   ├── auth.module.ts <img src="https://img.shields.io/badge/Module-111827?style=flat&logo=typescript&logoColor=E0234E" height="18"/>
@@ -67,14 +69,14 @@ insone-devs/
 │   │   │   ├── guards <img src="https://img.shields.io/badge/-Guards-111827?style=flat&logo=typescript&logoColor=purple" height="18"/>/
 │   │   │   │   └── jwt-auth.guard.ts <img src="https://img.shields.io/badge/-Guard-111827?style=flat&logo=typescript&logoColor=purple" height="18"/>
 │   │   │   └── decorators <img src="https://img.shields.io/badge/-Decorators-111827?style=flat&logo=typescript&logoColor=orange" height="18"/>/
-│   │   │       └── current-user.decorator.ts <img src="https://img.shields.io/badge/-Decorator-111827?style=flat&logo=typescript&logoColor=orange" height="18"/>
+│   │   │       ├── current-user.decorator.ts <img src="https://img.shields.io/badge/-Decorator-111827?style=flat&logo=typescript&logoColor=orange" height="18"/>
+│   │   │       └── updated-user.decorator.ts <img src="https://img.shields.io/badge/-Decorator-111827?style=flat&logo=typescript&logoColor=orange" height="18"/>
 │   │   ├── types <img src="https://img.shields.io/badge/-TypeScript-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>/
 │   │   │   └── globals.d.ts <img src="https://img.shields.io/badge/TypeScript-Global_Types-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>
 │   │   ├── app.controller.ts <img src="https://img.shields.io/badge/-Controller-111827?style=flat&logo=typescript&logoColor=F7DF1E" height="18"/>
 │   │   ├── app.module.ts <img src="https://img.shields.io/badge/-Module-111827?style=flat&logo=typescript&logoColor=E0234E" height="18"/>
 │   │   ├── app.service.ts <img src="https://img.shields.io/badge/-Service-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>
 │   │   └── main.ts <img src="https://img.shields.io/badge/-Main_Entry_Point-111827?style=flat&logo=typescript&logoColor=purple" height="18"/>
-│   ├── .env.example <img src="https://img.shields.io/badge/-Env_Example-111827?style=flat&logo=dotenv&logoColor=ECD53F" height="18"/>
 │   ├── nest-cli.json <img src="https://img.shields.io/badge/-NestJS_CLI-111827?style=flat&logo=nestjs&logoColor=E0234E" height="18"/>
 │   ├── package.json <img src="https://img.shields.io/badge/-npm-111827?style=flat&logo=npm&logoColor=CB3837" height="18"/>
 │   └── tsconfig.json <img src="https://img.shields.io/badge/-TSConfig-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>
@@ -116,6 +118,7 @@ insone-devs/
 │   └── tsconfig.json <img src="https://img.shields.io/badge/-TSConfig-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>
 │
 ├── docs <img src="https://img.shields.io/badge/-Docs-111827?style=flat&logo=readthedocs&logoColor=8CA1AF" height="18"/>/
+│   ├── FORMS.md <img src="https://img.shields.io/badge/-Forms-111827?style=flat&logo=googleforms&logoColor=7248B9" height="18"/>
 │   └── TASKS.md <img src="https://img.shields.io/badge/-Tasks-111827?style=flat&logo=todoist&logoColor=E44332" height="18"/>
 |
 ├── .gitignore <img src="https://img.shields.io/badge/-GitIgnore-111827?style=flat&logo=git&logoColor=F05032" height="18"/>
@@ -123,47 +126,94 @@ insone-devs/
 ├── README.md <img src="https://img.shields.io/badge/-Markdown-111827?style=flat&logo=markdown&logoColor=white" height="18"/>
 </pre>
 
-<h2 align="center">⚙️ Como Rodar o Projeto <br>
-<img src="https://img.shields.io/badge/Setup-111827?style=flat-square&logo=todoist&logoColor=grey"/></h2>
+<h2 align="center">🕹️ Comandos</h2>
 
-**1. Clone o repositório:**
+<p align="left">Clone o repositório via GitHub Desktop ou terminal: <br>
+ <img src="https://img.shields.io/badge/-GitHub_Desktop-111827?style=flat-square&logo=github&logoColor=purple"/>
+</p>
+
 ```bash
 git clone https://github.com/juninhos-comunidade/insone-devs.git
 cd insone-devs
 ```
 
-**2. Instale as dependências do backend e do frontend:**
+<h3 align="center">Rodar localmente <br>
+<img src="https://img.shields.io/badge/Local_Host-111827?style=flat-square&logo=readme&logoColor=white"/><img src="https://img.shields.io/badge/-NPM-111827?style=flat-square&logo=npm&logoColor=CB3837"/>
+</h3>
+
 ```bash
-npm install --prefix backend
-npm install --prefix frontend
+# Instala as dependências do backend
+cd backend && npm install && cd ..
+
+# Instala as dependências do frontend
+cd frontend && npm install && cd ..
 ```
 
-**3. Configure as variáveis de ambiente do backend:**
+<h4 align="left">Configura as variáveis de ambiente <br>
+<img src="https://img.shields.io/badge/-Env_Example-111827?style=flat-square&logo=dotenv&logoColor=ECD53F"/></h4>
+
+```bash
+# Backend
+cd backend && cp .env.example .env && cd ..
+# preencha DATABASE_URL (PostgreSQL) e JWT_SECRET no backend/.env
+
+# Frontend
+cd frontend && cp .env.example .env && cd ..
+```
+
+<h4 align="left">Gera o client do Prisma e roda as migrations <br>
+<img src="https://img.shields.io/badge/-Prisma-111827?style=flat-square&logo=prisma&logoColor=5A67D8"/><img src="https://img.shields.io/badge/-Prisma_Studio-111827?style=flat-square&logo=prisma&logoColor=green"/><img src="https://img.shields.io/badge/-PostgreSQL-111827?style=flat-square&logo=postgresql&logoColor=41691"/></h4>
+
 ```bash
 cd backend
-cp .env.example .env
-```
-Preencha o `.env` com a `DATABASE_URL` (PostgreSQL) e um `JWT_SECRET`.
-
-**4. Gere o client do Prisma e rode as migrations:**
-```bash
 npx prisma generate
 npx prisma migrate dev
+cd ..
 ```
 
-**5. Configure as variáveis de ambiente do frontend:**
+<h4 align="left">Comandos úteis do Prisma <br>
+<img src="https://img.shields.io/badge/-Prisma-111827?style=flat-square&logo=prisma&logoColor=5A67D8"/></h4>
+
 ```bash
-cd ../frontend
-cp .env.example .env
+cd backend
+
+# Gera o Prisma Client a partir do schema
+npx prisma generate
+
+# Cria e aplica uma nova migration em dev
+npx prisma migrate dev --name nome_da_migration
+
+# Aplica as migrations pendentes (produção/staging)
+npx prisma migrate deploy
+
+# Reseta o banco: dropa tudo, reaplica migrations e roda o seed
+npx prisma migrate reset
+
+# Vê o status das migrations
+npx prisma migrate status
+
+# Abre o Prisma Studio (interface visual do banco)
+npx prisma studio
 ```
 
-**6. Suba o backend e o frontend (em terminais separados):**
 ```bash
-# backend/
-npm run start:dev
+# Sobe o backend e o frontend (em terminais separados):
+cd backend && npm run start:dev
+cd frontend && npm run dev
 
-# frontend/
-npm run dev
+# Backend:
+http://localhost:3000
+
+# Frontend:
+http://localhost:5173
+
+# Prisma Studio:
+http://localhost:5555
 ```
 
-O backend sobe em `http://localhost:3000` e o frontend em `http://localhost:5173`.
+<h2 align="center">Pesquisa de Campo via Google Forms <br>
+  <img src="https://img.shields.io/badge/Google_Forms-111827?style=for-the-badge&logo=googleforms&logoColor=7248B9" height="21" alt="Google Forms"/></h2>
+
+<p align="center">
+Para validar a proposta do MySTACK, o time realizou uma pesquisa de campo com estudantes, autodidatas em transição de carreira e profissionais de tecnologia. Confira o detalhamento completo do formulário, as perguntas e as estatísticas coletadas em <a href="docs/FORMS.md"><b>docs/FORMS.md</b></a>.
+</p>
