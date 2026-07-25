@@ -139,9 +139,47 @@ export class ServicoUsuarios
     return this.removerSenha(usuarioAtualizado);
   }
 
-  async remover(id: string): Promise<void>
+  async atualizarSenhaComEmail(id: string, email: string, novaSenha: string): Promise<UsuarioSemSenha>
   {
-    await this.buscarPorId(id);
+    const usuario = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!usuario)
+    {
+      throw new NotFoundException('ERRO! ❌ Usuário não encontrado.');
+    }
+
+    if (usuario.email.toLowerCase() !== email.toLowerCase())
+    {
+      throw new UnauthorizedException('ERRO! ❌ O e-mail informado não corresponde ao da sua conta.');
+    }
+
+    const senhaCriptografada = await bcrypt.hash(novaSenha, NUMERO_RODADAS_SALT);
+
+    const usuarioAtualizado = await this.prisma.user.update
+    (
+      {
+        where: { id },
+        data: { password: senhaCriptografada },
+      }
+    );
+
+    return this.removerSenha(usuarioAtualizado);
+  }
+
+  async removerPermanente(id: string, email: string): Promise<void>
+  {
+    const usuario = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!usuario)
+    {
+      throw new NotFoundException('ERRO! ❌ Usuário não encontrado.');
+    }
+
+    if (usuario.email.toLowerCase() !== email.toLowerCase())
+    {
+      throw new UnauthorizedException('ERRO! ❌ O e-mail informado não corresponde ao da sua conta.');
+    }
+
     await this.prisma.user.delete({ where: { id } });
   }
 }

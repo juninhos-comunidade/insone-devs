@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Patch, Post, UseGuards } from '@nestjs/common';
-import { IdUsuarioLogado } from '../common/decorators/updated-user.decorator';
+import { IdUsuarioLogado } from '../common/decorators/current-user-id.decorator';
 import { GuardaJwt } from '../common/guards/jwt-auth.guard';
 import { CriarUsuarioDto } from '../users/dto/create-user.dto';
 import { ServicoAutenticacao } from './auth.service';

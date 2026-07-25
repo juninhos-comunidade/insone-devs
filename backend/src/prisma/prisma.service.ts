@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class ServicoPrisma
+
   extends PrismaClient
   implements OnModuleInit, OnModuleDestroy
 {

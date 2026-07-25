@@ -4,9 +4,9 @@ export class AtualizarSenhaDto
 {
   @IsString()
   @MinLength(10)
-  senhaAtual: string;
+  senhaAtual!: string;
 
   @IsString()
   @MinLength(10)
-  novaSenha: string;
+  novaSenha!: string;
 }

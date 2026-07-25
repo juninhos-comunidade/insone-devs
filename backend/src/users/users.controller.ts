@@ -1,17 +1,22 @@
-import {
+import 
+{
   Body,
   Controller,
   Delete,
   ForbiddenException,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   UseGuards,
 } from '@nestjs/common';
 
 import { GuardaJwt } from '../common/guards/jwt-auth.guard';
-import { IdUsuarioLogado } from '../common/decorators/updated-user.decorator';
+import { IdUsuarioLogado } from '../common/decorators/current-user-id.decorator';
 import { AtualizarUsuarioDto } from './dto/update-user.dto';
+import { AtualizarSenhaUsuarioDto } from './dto/update-password.dto';
+import { ExcluirContaDto } from './dto/delete-account.dto';
 import { ServicoUsuarios } from './users.service';
 
 @Controller('users')
@@ -48,14 +53,37 @@ export class ControladorUsuarios
     return this.servicoUsuarios.atualizar(id, dadosAtualizacao);
   }
 
-  @Delete(':id')
-  async remover(@Param('id') id: string, @IdUsuarioLogado() idUsuarioLogado?: string) 
+  @HttpCode(HttpStatus.OK)
+  @Patch(':id/senha')
+  async atualizarSenha(
+    @Param('id') id: string,
+    @Body() dados: AtualizarSenhaUsuarioDto,
+    @IdUsuarioLogado() idUsuarioLogado?: string,
+  )
   {
-    if (id !== idUsuarioLogado) 
+    if (id !== idUsuarioLogado)
     {
-      throw new ForbiddenException('ERRO! ❌ Você só pode remover o seu próprio usuário.');
+      throw new ForbiddenException('ERRO! ❌ Você só pode atualizar a senha do seu próprio usuário.');
     }
 
-    return this.servicoUsuarios.remover(id);
+    return this.servicoUsuarios.atualizarSenhaComEmail(id, dados.email, dados.novaSenha);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Delete(':id')
+  async remover(
+    @Param('id') id: string,
+    @Body() dados: ExcluirContaDto,
+    @IdUsuarioLogado() idUsuarioLogado?: string,
+  )
+  {
+    if (id !== idUsuarioLogado)
+    {
+      throw new ForbiddenException('ERRO! ❌ Você só pode excluir permanentemente o seu próprio usuário.');
+    }
+
+    await this.servicoUsuarios.removerPermanente(id, dados.email);
+
+    return { mensagem: 'Sua conta foi excluída permanentemente. ✅' };
   }
 }

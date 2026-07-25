@@ -17,6 +17,7 @@
   <img src="https://img.shields.io/badge/-CSS3-111827?style=flat-square&logo=css&logoColor=663399" height="25" alt="CSS3"/> 
   <img src="https://img.shields.io/badge/JavaScript-111827?style=for-the-badge&logo=javascript&logoColor=yellow" height="25" alt="JavaScript"/>
   <img src="https://img.shields.io/badge/TypeScript-111827?style=for-the-badge&logo=typescript&logoColor=3178C6" height="25" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/Docker-111827?style=for-the-badge&logo=docker&logoColor=3178C6" height="25" alt="Docker"/>
   <img src="https://img.shields.io/badge/Architecture-111827?style=for-the-badge&logo=instructure&logoColor=white" height="25" alt="Architecture"/> <br>
   <img src="https://img.shields.io/badge/NestJS-111827?style=for-the-badge&logo=nestjs&logoColor=E0234E" height="25" alt="NestJS"/>
   <img src="https://img.shields.io/badge/React-111827?style=for-the-badge&logo=react&logoColor=61DAFB" height="25" alt="React"/>
@@ -46,6 +47,7 @@ insone-devs/
 │   │   ├── migrations <img src="https://img.shields.io/badge/Migrations-111827?style=flat&logo=databricks&logoColor=FF3621" height="18"/>/
 │   │   ├── schema.prisma <img src="https://img.shields.io/badge/Prisma_Schema-111827?style=flat&logo=prisma&logoColor=5A67D8" height="18"/>
 │   │   └── seed.ts <img src="https://img.shields.io/badge/-Seed-111827?style=flat&logo=typescript&logoColor=2E8B57" height="18"/>
+│   │   └── test-user.ts <img src="https://img.shields.io/badge/-Test_User-111827?style=flat&logo=typescript&logoColor=purple" height="18"/>
 │   ├── src <img src="https://img.shields.io/badge/src-8B0000?style=flat&logo=nestjs&logoColor=FF0000" height="18"/>/
 │   │   ├── auth <img src="https://img.shields.io/badge/-Auth-111827?style=flat&logo=nestjs&logoColor=E0234E" height="18"/>/
 │   │   │   ├── dto <img src="https://img.shields.io/badge/-Data_Transform_Object_(DTO)-111827?style=flat&logo=typescript&logoColor=orange" height="18" alt="DTO"/>/
@@ -58,7 +60,9 @@ insone-devs/
 │   │   ├── users <img src="https://img.shields.io/badge/-Users-111827?style=flat&logo=nestjs&logoColor=E0234E" height="18"/>/
 │   │   │   ├── dto <img src="https://img.shields.io/badge/-Data_Transform_Object_(DTO)-111827?style=flat&logo=typescript&logoColor=orange" height="18" alt="DTO"/>/
 │   │   │   │   ├── create-user.dto.ts <img src="https://img.shields.io/badge/DTO_Create-111827?style=flat&logo=typescript&logoColor=E0234E" height="18"/>
-│   │   │   │   └── update-user.dto.ts <img src="https://img.shields.io/badge/DTO_Update-111827?style=flat&logo=typescript&logoColor=yellow" height="18"/>
+│   │   │   │   ├── update-user.dto.ts <img src="https://img.shields.io/badge/DTO_Update-111827?style=flat&logo=typescript&logoColor=yellow" height="18"/>
+│   │   │   │   ├── update-password.dto.ts <img src="https://img.shields.io/badge/DTO_Update-111827?style=flat&logo=typescript&logoColor=yellow" height="18"/>
+│   │   │   │   └── delete-account.dto.ts <img src="https://img.shields.io/badge/DTO_Delete-111827?style=flat&logo=typescript&logoColor=red" height="18"/>
 │   │   │   ├── users.controller.ts <img src="https://img.shields.io/badge/-Controller-111827?style=flat&logo=typescript&logoColor=F7DF1E" height="18"/>
 │   │   │   ├── users.service.ts <img src="https://img.shields.io/badge/-Service-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>
 │   │   │   └── users.module.ts <img src="https://img.shields.io/badge/-Module-111827?style=flat&logo=typescript&logoColor=E0234E" height="18"/>
@@ -70,7 +74,7 @@ insone-devs/
 │   │   │   │   └── jwt-auth.guard.ts <img src="https://img.shields.io/badge/-Guard-111827?style=flat&logo=typescript&logoColor=purple" height="18"/>
 │   │   │   └── decorators <img src="https://img.shields.io/badge/-Decorators-111827?style=flat&logo=typescript&logoColor=orange" height="18"/>/
 │   │   │       ├── current-user.decorator.ts <img src="https://img.shields.io/badge/-Decorator-111827?style=flat&logo=typescript&logoColor=orange" height="18"/>
-│   │   │       └── updated-user.decorator.ts <img src="https://img.shields.io/badge/-Decorator-111827?style=flat&logo=typescript&logoColor=orange" height="18"/>
+│   │   │       └── current-user-id.decorator.ts <img src="https://img.shields.io/badge/-Decorator-111827?style=flat&logo=typescript&logoColor=orange" height="18"/>
 │   │   ├── types <img src="https://img.shields.io/badge/-TypeScript-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>/
 │   │   │   └── globals.d.ts <img src="https://img.shields.io/badge/TypeScript-Global_Types-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>
 │   │   ├── app.controller.ts <img src="https://img.shields.io/badge/-Controller-111827?style=flat&logo=typescript&logoColor=F7DF1E" height="18"/>
@@ -117,6 +121,11 @@ insone-devs/
 │   ├── vite.config.ts <img src="https://img.shields.io/badge/-Vite-111827?style=flat&logo=vite&logoColor=purple" height="18"/>
 │   └── tsconfig.json <img src="https://img.shields.io/badge/-TSConfig-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>
 │
+├── docker <img src="https://img.shields.io/badge/-Docker-111827?style=flat&logo=docker&logoColor=2496ED" height="18"/>/
+│   ├── Dockerfile <img src="https://img.shields.io/badge/-Dockerfile-111827?style=flat&logo=docker&logoColor=2496ED" height="18"/>
+│   ├── Dockerfile.dockerignore <img src="https://img.shields.io/badge/-Dockerignore-111827?style=flat&logo=docker&logoColor=2496ED" height="18"/>
+│   └── docker-compose.yml <img src="https://img.shields.io/badge/-Docker_Compose-111827?style=flat&logo=docker&logoColor=2496ED" height="18"/>
+|
 ├── docs <img src="https://img.shields.io/badge/-Docs-111827?style=flat&logo=readthedocs&logoColor=8CA1AF" height="18"/>/
 │   ├── FORMS.md <img src="https://img.shields.io/badge/-Forms-111827?style=flat&logo=googleforms&logoColor=7248B9" height="18"/>
 │   └── TASKS.md <img src="https://img.shields.io/badge/-Tasks-111827?style=flat&logo=todoist&logoColor=E44332" height="18"/>
@@ -186,14 +195,23 @@ npx prisma migrate dev --name nome_da_migration
 # Aplica as migrations pendentes (produção/staging)
 npx prisma migrate deploy
 
-# Reseta o banco: dropa tudo, reaplica migrations e roda o seed
-npx prisma migrate reset
-
 # Vê o status das migrations
 npx prisma migrate status
 
 # Abre o Prisma Studio (interface visual do banco)
 npx prisma studio
+
+# --- Resetar o banco para testes manuais ---
+
+# 1. Garanta que o container do PostgreSQL está no ar
+docker compose -f docker/docker-compose.yml up -d postgres
+
+# 2. Dropa o banco, reaplica todas as migrations e roda o seed automaticamente
+npx prisma migrate reset --force
+# (--force pula a confirmação interativa do terminal)
+
+# 3. Se quiser só repopular os dados de teste, sem resetar o schema:
+npx prisma db seed
 ```
 
 ```bash
@@ -210,6 +228,22 @@ http://localhost:5173
 # Prisma Studio:
 http://localhost:5555
 ```
+
+<h4 align="left">Roda os testes <br>
+<img src="https://img.shields.io/badge/-Jest-111827?style=flat-square&logo=jest&logoColor=C21325"/></h4>
+
+```bash
+# Backend (Jest)
+cd backend
+npm test
+```
+
+```bash
+# Frontend
+# Ainda não há testes automatizados configurados no frontend.
+```
+
+<h5 align="left">Futuramente</h5>
 
 <h2 align="center">Pesquisa de Campo via Google Forms <br>
   <img src="https://img.shields.io/badge/Google_Forms-111827?style=for-the-badge&logo=googleforms&logoColor=7248B9" height="21" alt="Google Forms"/></h2>
