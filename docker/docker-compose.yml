@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: insone_devs_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-insone}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-insone}
+      POSTGRES_DB: ${POSTGRES_DB:-insone_devs}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-insone}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: insone_devs_backend
+    restart: unless-stopped
+    env_file:
+      - ../backend/.env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-insone}:${POSTGRES_PASSWORD:-insone}@postgres:5432/${POSTGRES_DB:-insone_devs}?schema=public
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

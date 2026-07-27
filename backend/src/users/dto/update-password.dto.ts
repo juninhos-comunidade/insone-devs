@@ -1,11 +1,11 @@
 import { IsEmail, IsString, MinLength } from 'class-validator';
 
-export class LoginDto 
+export class AtualizarSenhaUsuarioDto
 {
   @IsEmail()
   email!: string;
 
   @IsString()
   @MinLength(10)
-  senha!: string;
+  novaSenha!: string;
 }
