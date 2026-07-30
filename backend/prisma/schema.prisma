@@ -1,10 +1,25 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url = env("DATABASE_URL")
+// Papel do usuário no sistema
+enum Role {
+  CANDIDATE // Dev em busca da 1ª vaga / transição
+  MENTOR    // Mentor
+  ADMIN     // Administrador
+}
+
+// Status da Simulação de Entrevista
+enum SimulationStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
 }
 
 model User {
@@ -12,6 +27,80 @@ model User {
   name      String
   email     String   @unique
   password  String
+  role      Role     @default(CANDIDATE)
+  bio       String?  // Pequena apresentação / objetivo profissional
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Relacionamentos
+  mentorshipGoal     MentorshipGoal?      // Meta/Trilha atual do candidato
+  interviewSessions  InterviewSimulation[] // Treinos de entrevista realizados
+  agentSessions      AgentSession[]       // Conversas registradas com o Agente/IA
+}
+
+// Meta ou Plano de Orientação para a Transição/Primeira Vaga
+model MentorshipGoal {
+  id           String   @id @default(uuid())
+  title        String   // Ex: "Preparação para Backend Python/Node"
+  targetRole   String   // Ex: "Desenvolvedor Junior"
+  currentStage String   // Ex: "Ajuste de Currículo", "Treino de Algoritmos"
+  notes        String?  // Orientações do mentor ou plano de ação
+  
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tasks        GoalTask[] // Lista de tarefas/marcos a cumprir
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// Tarefas da trilha de mentoria (ex: "Criar projeto no GitHub", "Refatorar LinkedIn")
+model GoalTask {
+  id               String         @id @default(uuid())
+  title            String
+  isCompleted      Boolean        @default(false)
+  
+  mentorshipGoalId String
+  mentorshipGoal   MentorshipGoal @relation(fields: [mentorshipGoalId], references: [id], onDelete: Cascade)
+  
+  createdAt        DateTime       @default(now())
+}
+
+// Treinos e Simulações de Entrevista de Emprego
+model InterviewSimulation {
+  id          String           @id @default(uuid())
+  topic       String           // Ex: "Entrevista Comportamental", "Perguntas Técnicas Node.js"
+  status      SimulationStatus @default(COMPLETED)
+  feedback    String?          // Feedback retornado (pontos fortes, o que melhorar)
+  score       Int?             // Nota geral da performance (ex: 0 a 100)
+  
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime         @default(now())
+}
+
+// Sessões de interação com o Agente Inteligente / IA
+model AgentSession {
+  id        String         @id @default(uuid())
+  title     String         // Ex: "Revisão de Pitch Pessoal"
+  
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  messages  AgentMessage[] // Histórico de mensagens trocadas nessa sessão
+
+  createdAt DateTime       @default(now())
+}
+
+// Mensagens trocadas entre Usuário e Agente
+model AgentMessage {
+  id             String       @id @default(uuid())
+  sender         String       // "USER" ou "AGENT"
+  content        String
+  
+  agentSessionId String
+  agentSession   AgentSession @relation(fields: [agentSessionId], references: [id], onDelete: Cascade)
+
+  createdAt      DateTime     @default(now())
 }
