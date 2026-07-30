@@ -1,38 +1,185 @@
-import { Injectable, ConflictException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service'; 
-import { CreateUserDto } from './dto/create-user.dto';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { User as Usuario } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { ServicoPrisma } from '../prisma/prisma.service';
+import { AtualizarUsuarioDto } from './dto/update-user.dto';
+import { CriarUsuarioDto } from './dto/create-user.dto';
+
+const NUMERO_RODADAS_SALT = 10;
+
+export type UsuarioSemSenha = Omit<Usuario, 'password'>;
 
 @Injectable()
-export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+export class ServicoUsuarios 
+{
+  constructor(private readonly prisma: ServicoPrisma) 
+  {}
 
-  async create(createUserDto: CreateUserDto) {
-    const { email, password, name } = createUserDto;
+  private removerSenha(usuario: Usuario): UsuarioSemSenha 
+  {
+    const { password: _senha, ...usuarioSemSenha } = usuario;
+    return usuarioSemSenha;
+  }
 
+  async criar(dadosUsuario: CriarUsuarioDto): Promise<UsuarioSemSenha> 
+  {
+    const usuarioExistente = await this.prisma.user.findUnique
+    (
+      {
+      where: { email: dadosUsuario.email },
+      }
+    );
 
-    const userExists = await this.prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (userExists) {
-      throw new ConflictException('E-mail já cadastrado.');
+    if (usuarioExistente) 
+      {
+      throw new ConflictException('ERRO! ❌ Já existe um usuário cadastrado com este e-mail.');
     }
 
+    const senhaCriptografada = await bcrypt.hash(dadosUsuario.senha, NUMERO_RODADAS_SALT);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-  
-    const user = await this.prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
+    const novoUsuario = await this.prisma.user.create(
+    {
+      data: 
+      {
+        name: dadosUsuario.nome,
+        email: dadosUsuario.email,
+        password: senhaCriptografada,
       },
     });
 
+    return this.removerSenha(novoUsuario);
+  }
 
-    const { password: _, ...userWithoutPassword } = user;
-    return userWithoutPassword;
+  async listarTodos(): Promise<UsuarioSemSenha[]> 
+  {
+    const usuarios = await this.prisma.user.findMany();
+    return usuarios.map((usuario) => this.removerSenha(usuario));
+  }
+
+  async buscarPorId(id: string): Promise<UsuarioSemSenha> 
+  {
+    const usuario = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!usuario) 
+      {
+      throw new NotFoundException('ERRO! ❌ Usuário não encontrado.');
+    }
+
+    return this.removerSenha(usuario);
+  }
+
+  async buscarPorEmail(email: string): Promise<Usuario | null> 
+  {
+    return this.prisma.user.findUnique({ where: { email } });
+  }
+
+  async atualizar(id: string, dadosAtualizacao: AtualizarUsuarioDto): Promise<UsuarioSemSenha> 
+  {
+    await this.buscarPorId(id);
+
+    const dados: { name?: string; email?: string; password?: string } = {};
+
+    if (dadosAtualizacao.nome !== undefined) 
+    {
+      dados.name = dadosAtualizacao.nome;
+    }
+
+    if (dadosAtualizacao.email !== undefined) 
+    {
+      dados.email = dadosAtualizacao.email;
+    }
+
+    if (dadosAtualizacao.senha !== undefined) 
+    {
+      dados.password = await bcrypt.hash(dadosAtualizacao.senha, NUMERO_RODADAS_SALT);
+    }
+
+    const usuarioAtualizado = await this.prisma.user.update
+    (
+      {
+        where: { id },
+        data: dados,
+      }
+    );
+
+    return this.removerSenha(usuarioAtualizado);
+  }
+
+  async atualizarSenha(id: string, senhaAtual: string, novaSenha: string): Promise<UsuarioSemSenha>
+  {
+    const usuario = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!usuario)
+    {
+      throw new NotFoundException('ERRO! ❌ Usuário não encontrado.');
+    }
+
+    const senhaAtualValida = await bcrypt.compare(senhaAtual, usuario.password);
+
+    if (!senhaAtualValida)
+    {
+      throw new UnauthorizedException('ERRO! ❌ Senha atual incorreta.');
+    }
+
+    const senhaCriptografada = await bcrypt.hash(novaSenha, NUMERO_RODADAS_SALT);
+
+    const usuarioAtualizado = await this.prisma.user.update
+    (
+      {
+        where: { id },
+        data: { password: senhaCriptografada },
+      }
+    );
+
+    return this.removerSenha(usuarioAtualizado);
+  }
+
+  async atualizarSenhaComEmail(id: string, email: string, novaSenha: string): Promise<UsuarioSemSenha>
+  {
+    const usuario = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!usuario)
+    {
+      throw new NotFoundException('ERRO! ❌ Usuário não encontrado.');
+    }
+
+    if (usuario.email.toLowerCase() !== email.toLowerCase())
+    {
+      throw new UnauthorizedException('ERRO! ❌ O e-mail informado não corresponde ao da sua conta.');
+    }
+
+    const senhaCriptografada = await bcrypt.hash(novaSenha, NUMERO_RODADAS_SALT);
+
+    const usuarioAtualizado = await this.prisma.user.update
+    (
+      {
+        where: { id },
+        data: { password: senhaCriptografada },
+      }
+    );
+
+    return this.removerSenha(usuarioAtualizado);
+  }
+
+  async removerPermanente(id: string, email: string): Promise<void>
+  {
+    const usuario = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!usuario)
+    {
+      throw new NotFoundException('ERRO! ❌ Usuário não encontrado.');
+    }
+
+    if (usuario.email.toLowerCase() !== email.toLowerCase())
+    {
+      throw new UnauthorizedException('ERRO! ❌ O e-mail informado não corresponde ao da sua conta.');
+    }
+
+    await this.prisma.user.delete({ where: { id } });
   }
 }
