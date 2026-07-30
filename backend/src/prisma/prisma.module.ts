@@ -9,4 +9,5 @@ import { ServicoPrisma } from './prisma.service';
         exports: [ServicoPrisma],
     }
 )
-export class ModuloPrisma {}
+export class ModuloPrisma 
+{}

@@ -8,7 +8,7 @@ import { ServicoAutenticacao } from './auth.service';
 import { EstrategiaJwt } from './jwt.strategy';
 
 @Module(
-  {
+{
   imports: 
   [
     ModuloUsuarios,

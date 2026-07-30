@@ -31,12 +31,12 @@ export class ServicoUsuarios
     const usuarioExistente = await this.prisma.user.findUnique
     (
       {
-      where: { email: dadosUsuario.email },
+        where: { email: dadosUsuario.email },
       }
     );
 
     if (usuarioExistente) 
-      {
+    {
       throw new ConflictException('ERRO! ❌ Já existe um usuário cadastrado com este e-mail.');
     }
 

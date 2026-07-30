@@ -28,7 +28,7 @@ export class EstrategiaJwt extends PassportStrategy(Strategy, 'jwt')
   {
     if (!payload?.sub) 
       {
-      throw new UnauthorizedException('Token inválido. ❌ Usuario não encontrado.');
+      throw new UnauthorizedException('Token inválido. ❌ O Usuario não foi encontrado.');
     }
 
     return { id: payload.sub, email: payload.email };

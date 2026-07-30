@@ -60,6 +60,7 @@ export class ControladorUsuarios
     @Body() dados: AtualizarSenhaUsuarioDto,
     @IdUsuarioLogado() idUsuarioLogado?: string,
   )
+
   {
     if (id !== idUsuarioLogado)
     {
@@ -76,6 +77,7 @@ export class ControladorUsuarios
     @Body() dados: ExcluirContaDto,
     @IdUsuarioLogado() idUsuarioLogado?: string,
   )
+  
   {
     if (id !== idUsuarioLogado)
     {

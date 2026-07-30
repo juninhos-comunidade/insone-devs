@@ -83,6 +83,7 @@ insone-devs/
 │   │   └── main.ts <img src="https://img.shields.io/badge/-Main_Entry_Point-111827?style=flat&logo=typescript&logoColor=purple" height="18"/>
 │   ├── nest-cli.json <img src="https://img.shields.io/badge/-NestJS_CLI-111827?style=flat&logo=nestjs&logoColor=E0234E" height="18"/>
 │   ├── package.json <img src="https://img.shields.io/badge/-npm-111827?style=flat&logo=npm&logoColor=CB3837" height="18"/>
+│   ├── .env.example <img src="https://img.shields.io/badge/-Env_Example-111827?style=flat&logo=dotenv&logoColor=ECD53F" height="18"/>
 │   └── tsconfig.json <img src="https://img.shields.io/badge/-TSConfig-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>
 |
 ├── frontend <img src="https://img.shields.io/badge/HTML5-111827?style=flat&logo=html5&logoColor=E34F26" height="18"/> <img src="https://img.shields.io/badge/-React-111827?style=flat&logo=react&logoColor=61DAFB" height="18"/> <img src="https://img.shields.io/badge/-Vite-111827?style=flat&logo=vite&logoColor=purple" height="18"/> <img src="https://img.shields.io/badge/-CSS-111827?style=flat-square&logo=css&logoColor=663399"/> <img src="https://img.shields.io/badge/-TailwindCSS-111827?style=flat&logo=tailwindcss&logoColor=06B6D4" height="18"/> <img src="https://img.shields.io/badge/-TypeScript-111827?style=flat&logo=typescript&logoColor=3178C6" height="18"/>/
@@ -127,6 +128,7 @@ insone-devs/
 │   └── docker-compose.yml <img src="https://img.shields.io/badge/-Docker_Compose-111827?style=flat&logo=docker&logoColor=2496ED" height="18"/>
 |
 ├── docs <img src="https://img.shields.io/badge/-Docs-111827?style=flat&logo=readthedocs&logoColor=8CA1AF" height="18"/>/
+│   ├── img <img src="https://img.shields.io/badge/-Images-111827?style=flat&logo=googlephotos&logoColor=4285F4" height="18"/>/
 │   ├── FORMS.md <img src="https://img.shields.io/badge/-Forms-111827?style=flat&logo=googleforms&logoColor=7248B9" height="18"/>
 │   └── TASKS.md <img src="https://img.shields.io/badge/-Tasks-111827?style=flat&logo=todoist&logoColor=E44332" height="18"/>
 |
